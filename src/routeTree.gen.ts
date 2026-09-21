@@ -10,33 +10,79 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ExploreRouteImport } from './routes/explore'
+import { Route as GalleryRouteImport } from './routes/gallery'
+import { Route as SurveyRouteImport } from './routes/survey'
+import { Route as MandalsMandalIdRouteImport } from './routes/mandals.$mandalId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ExploreRoute = ExploreRouteImport.update({
+  id: '/explore',
+  path: '/explore',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GalleryRoute = GalleryRouteImport.update({
+  id: '/gallery',
+  path: '/gallery',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SurveyRoute = SurveyRouteImport.update({
+  id: '/survey',
+  path: '/survey',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MandalsMandalIdRoute = MandalsMandalIdRouteImport.update({
+  id: '/mandals/$mandalId',
+  path: '/mandals/$mandalId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/explore': typeof ExploreRoute
+  '/gallery': typeof GalleryRoute
+  '/survey': typeof SurveyRoute
+  '/mandals/$mandalId': typeof MandalsMandalIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/explore': typeof ExploreRoute
+  '/gallery': typeof GalleryRoute
+  '/survey': typeof SurveyRoute
+  '/mandals/$mandalId': typeof MandalsMandalIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/explore': typeof ExploreRoute
+  '/gallery': typeof GalleryRoute
+  '/survey': typeof SurveyRoute
+  '/mandals/$mandalId': typeof MandalsMandalIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/explore' | '/gallery' | '/survey' | '/mandals/$mandalId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/explore' | '/gallery' | '/survey' | '/mandals/$mandalId'
+  id:
+    | '__root__'
+    | '/'
+    | '/explore'
+    | '/gallery'
+    | '/survey'
+    | '/mandals/$mandalId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ExploreRoute: typeof ExploreRoute
+  GalleryRoute: typeof GalleryRoute
+  SurveyRoute: typeof SurveyRoute
+  MandalsMandalIdRoute: typeof MandalsMandalIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +94,43 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/explore': {
+      id: '/explore'
+      path: '/explore'
+      fullPath: '/explore'
+      preLoaderRoute: typeof ExploreRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/gallery': {
+      id: '/gallery'
+      path: '/gallery'
+      fullPath: '/gallery'
+      preLoaderRoute: typeof GalleryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/survey': {
+      id: '/survey'
+      path: '/survey'
+      fullPath: '/survey'
+      preLoaderRoute: typeof SurveyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mandals/$mandalId': {
+      id: '/mandals/$mandalId'
+      path: '/mandals/$mandalId'
+      fullPath: '/mandals/$mandalId'
+      preLoaderRoute: typeof MandalsMandalIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ExploreRoute: ExploreRoute,
+  GalleryRoute: GalleryRoute,
+  SurveyRoute: SurveyRoute,
+  MandalsMandalIdRoute: MandalsMandalIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
