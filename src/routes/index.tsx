@@ -1,24 +1,38 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { BookOpen, Brush, Users, Leaf, ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { MandalCard, ProcessLine, SectionHeading } from "@/components/site/sections";
+import { mandals } from "@/data/heritage";
+import { methodSteps } from "@/data/site";
+import heroImage from "@/assets/images/mandals/ganpati-archive-illustration.jpg";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
 export const Route = createFileRoute("/")({
-  component: Index,
+  head: () => ({ meta: [
+    { title: "Ganpati Dharohar — Mumbai Ganpati Heritage Archive" },
+    { name: "description", content: "A student-led digital archive documenting Mumbai's Ganpati heritage, community traditions and preservation." },
+    { property: "og:title", content: "Ganpati Dharohar — Mumbai Ganpati Heritage Archive" },
+    { property: "og:description", content: "Document, digitize and preserve Mumbai's Ganpati heritage." },
+    { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" },
+  ]}), component: HomePage,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
-function Index() {
-  return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
-  );
+const preserve = [
+  { icon: BookOpen, title: "Traditions", text: "Document traditional Ganpati customs and practices." },
+  { icon: Brush, title: "Art & Idols", text: "Highlight idol-making, artwork and decoration." },
+  { icon: Users, title: "Community", text: "Document community participation and activities." },
+  { icon: Leaf, title: "Eco-Friendly Practices", text: "Highlight environmentally responsible celebration practices." },
+];
+
+function HomePage() {
+  return <>
+    <section className="relative min-h-[76vh] overflow-hidden bg-primary text-primary-foreground">
+      <img src={heroImage} alt="Illustrative Ganpati cultural archive scene; not a project field photograph" width={1600} height={1000} className="absolute inset-0 size-full object-cover object-center" />
+      <div className="absolute inset-0 bg-primary/45" /><div className="absolute inset-y-0 left-0 w-full bg-gradient-to-r from-primary via-primary/85 to-transparent lg:w-3/4" />
+      <div className="archive-container relative flex min-h-[76vh] items-center py-20"><div className="max-w-2xl"><p className="text-xs font-bold uppercase tracking-[0.18em] text-gold-light">Preserving Mumbai's Ganpati Heritage</p><h1 className="mt-5 font-display text-6xl leading-[.95] md:text-8xl">Ganpati<br />Dharohar</h1><p className="mt-6 max-w-xl text-base leading-8 text-primary-foreground/85 md:text-lg">Discover the stories, traditions, art and community heritage behind Mumbai's Ganpati celebrations.</p><div className="mt-8 flex flex-wrap gap-3"><Button asChild size="lg" className="bg-secondary text-secondary-foreground hover:bg-secondary/90"><Link to="/explore">Explore Heritage <ArrowRight /></Link></Button><Button asChild size="lg" variant="outline" className="border-primary-foreground/45 bg-primary/20 text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground"><Link to="/survey">Take the Survey</Link></Button></div><p className="mt-6 text-xs text-primary-foreground/65">Hero artwork is illustrative and will be replaced with a verified project photograph.</p></div></div>
+    </section>
+    <section className="pattern-line py-20"><div className="archive-container"><SectionHeading eyebrow="Living heritage" title="What We Preserve" description="A cultural archive is more than a collection of images. It records the knowledge, creativity and shared work behind the celebration." /><div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">{preserve.map(({icon: Icon, title, text}) => <article key={title} className="archive-card p-6"><Icon className="size-7 text-accent-foreground" /><h3 className="mt-8 font-display text-2xl text-primary">{title}</h3><p className="mt-3 text-sm leading-6 text-muted-foreground">{text}</p></article>)}</div></div></section>
+    <section className="border-y border-border bg-muted/45 py-20"><div className="archive-container"><div className="flex flex-wrap items-end justify-between gap-6"><SectionHeading eyebrow="Archive entries" title="Explore Heritage" description="The structure is ready for the project's verified mandal records and field photographs." /><Button asChild variant="outline"><Link to="/explore">View all entries <ArrowRight /></Link></Button></div><div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">{mandals.slice(0,3).map((mandal) => <MandalCard key={mandal.id} mandal={mandal} />)}</div></div></section>
+    <section className="py-20"><div className="archive-container"><SectionHeading eyebrow="Project method" title="From field research to public awareness" /><ProcessLine steps={methodSteps} /></div></section>
+    <section className="bg-surface-deep py-20 text-primary-foreground"><div className="archive-container"><SectionHeading eyebrow="Project impact" title="The record will grow with verified field work" description="No values are shown until project data has been collected and confirmed." /><div className="mt-10 grid grid-cols-2 gap-px bg-primary-foreground/15 lg:grid-cols-4">{["Mandals Documented","Field Photographs","Survey Responses","Heritage Stories"].map((label) => <div key={label} className="bg-surface-deep p-6 md:p-8"><strong className="font-display text-5xl text-gold-light">—</strong><p className="mt-3 text-xs font-bold uppercase tracking-[0.12em] text-primary-foreground/65">{label}</p></div>)}</div></div></section>
+  </>;
 }
