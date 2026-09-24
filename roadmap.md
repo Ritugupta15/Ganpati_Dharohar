@@ -4,4 +4,4 @@
 - [x] Home, Explore, mandal details and Gallery
 - [x] Survey, Survey Results, Preservation and About
 - [x] Student setup and content-update documentation
-- [ ] Responsive and interaction verification
+- [x] Responsive and interaction verification
