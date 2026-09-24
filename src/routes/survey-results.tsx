@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { BarChart3, Database, ArrowRight } from "lucide-react";
+import { BarChart3, Database } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { PageIntro } from "@/components/site/sections";
 import { surveyResults } from "@/data/heritage";
