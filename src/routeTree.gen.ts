@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as ContributeRouteImport } from './routes/contribute'
 import { Route as ExploreRouteImport } from './routes/explore'
 import { Route as GalleryRouteImport } from './routes/gallery'
 import { Route as PreservationRouteImport } from './routes/preservation'
@@ -25,6 +26,11 @@ const IndexRoute = IndexRouteImport.update({
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContributeRoute = ContributeRouteImport.update({
+  id: '/contribute',
+  path: '/contribute',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ExploreRoute = ExploreRouteImport.update({
@@ -56,6 +62,7 @@ const MandalsMandalIdRoute = MandalsMandalIdRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/contribute': typeof ContributeRoute
   '/explore': typeof ExploreRoute
   '/gallery': typeof GalleryRoute
   '/preservation': typeof PreservationRoute
@@ -65,6 +72,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/contribute': typeof ContributeRoute
   '/explore': typeof ExploreRoute
   '/gallery': typeof GalleryRoute
   '/preservation': typeof PreservationRoute
@@ -75,6 +83,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/contribute': typeof ContributeRoute
   '/explore': typeof ExploreRoute
   '/gallery': typeof GalleryRoute
   '/preservation': typeof PreservationRoute
@@ -86,6 +95,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/contribute'
     | '/explore'
     | '/gallery'
     | '/preservation'
@@ -95,6 +105,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/about'
+    | '/contribute'
     | '/explore'
     | '/gallery'
     | '/preservation'
@@ -104,6 +115,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/about'
+    | '/contribute'
     | '/explore'
     | '/gallery'
     | '/preservation'
@@ -114,6 +126,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  ContributeRoute: typeof ContributeRoute
   ExploreRoute: typeof ExploreRoute
   GalleryRoute: typeof GalleryRoute
   PreservationRoute: typeof PreservationRoute
@@ -135,6 +148,13 @@ declare module '@tanstack/react-router' {
       path: '/about'
       fullPath: '/about'
       preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contribute': {
+      id: '/contribute'
+      path: '/contribute'
+      fullPath: '/contribute'
+      preLoaderRoute: typeof ContributeRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/explore': {
@@ -178,6 +198,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  ContributeRoute: ContributeRoute,
   ExploreRoute: ExploreRoute,
   GalleryRoute: GalleryRoute,
   PreservationRoute: PreservationRoute,
