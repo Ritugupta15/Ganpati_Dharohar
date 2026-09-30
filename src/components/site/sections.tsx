@@ -13,7 +13,7 @@ export function SectionHeading({ eyebrow, title, description }: { eyebrow?: stri
 
 /** Card used on Home and Explore — shows the first field photo of a mandal. */
 export function MandalCard({ mandal }: { mandal: Mandal }) {
-  const cover = mandal.photos[0];
+  const cover = mandal.photos[0]!;
   return (
     <article className="archive-card group flex flex-col overflow-hidden">
       <Link to="/mandals/$mandalId" params={{ mandalId: mandal.id }} className="relative block aspect-[4/3] overflow-hidden">

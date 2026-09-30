@@ -23,7 +23,7 @@ function ExplorePage() {
     const text = [m.name, m.location, m.theme, m.highlight, ...m.tags, ...m.sections.map((s) => s.body)].join(" ").toLowerCase();
     return text.includes(query.toLowerCase().trim()) && (filter === "All" || m.category === filter);
   }), [query, filter]);
-  const surprise = () => navigate({ to: "/mandals/$mandalId", params: { mandalId: mandals[Math.floor(Math.random() * mandals.length)].id } });
+  const surprise = () => navigate({ to: "/mandals/$mandalId", params: { mandalId: mandals[Math.floor(Math.random() * mandals.length)]!.id } });
 
   return <><PageIntro eyebrow="Browse the archive" title="Explore Mumbai's Ganpati Heritage" description="Five mandals documented through field visits in September 2026 — search by name, area, theme or tradition." />
     <section className="py-14"><div className="archive-container">
