@@ -12,7 +12,7 @@ export const suggestCaption = createServerFn({ method: "POST" })
     note: z.string().max(300).optional(),
   }).parse(d))
   .handler(async ({ data }) => {
-    const key = process.env.LOVABLE_API_KEY;
+    const key = process.env['LOVABLE_API_KEY'];
     if (!key) return { error: "AI is not configured yet." } as const;
 
     const res = await fetch("https://ai.gateway.lovable.dev/v1/responses", {

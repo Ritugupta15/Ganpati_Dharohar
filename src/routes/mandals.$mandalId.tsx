@@ -24,8 +24,9 @@ function MandalDetails() {
   const [tab, setTab] = useState(0); // which of the 5 story sections is open
   const [photo, setPhoto] = useState<number | null>(null);
   const idx = mandals.findIndex((x) => x.id === m.id);
-  const next = mandals[(idx + 1) % mandals.length];
-  const hero = m.photos[0];
+  const next = mandals[(idx + 1) % mandals.length]!;
+  const hero = m.photos[0]!;
+  const current = m.sections[tab]!;
   const share = async () => {
     const url = window.location.href;
     if (navigator.share) { try { await navigator.share({ title: m.name, url }); } catch { /* cancelled */ } }
@@ -52,8 +53,8 @@ function MandalDetails() {
           {m.sections.map((s, i) => <button key={s.title} role="tab" aria-selected={tab === i} onClick={() => setTab(i)} className={`shrink-0 rounded-full border px-4 py-2 text-sm font-semibold transition-colors ${tab === i ? "border-primary bg-primary text-primary-foreground" : "border-border bg-card text-foreground hover:border-primary"}`}><span className="mr-1.5 opacity-60">0{i + 1}</span>{s.title}</button>)}
         </div>
         <article key={tab} role="tabpanel" className="archive-card mt-5 animate-in fade-in slide-in-from-bottom-2 p-7 md:p-10">
-          <h2 className="font-display text-3xl text-primary md:text-4xl">{m.sections[tab].title}</h2>
-          <p className="mt-5 text-lg leading-8 text-foreground/85">{m.sections[tab].body}</p>
+          <h2 className="font-display text-3xl text-primary md:text-4xl">{current.title}</h2>
+          <p className="mt-5 text-lg leading-8 text-foreground/85">{current.body}</p>
           <div className="mt-8 flex justify-between"><Button variant="ghost" disabled={tab === 0} onClick={() => setTab(tab - 1)}><ArrowLeft />Previous</Button><Button variant="ghost" disabled={tab === 4} onClick={() => setTab(tab + 1)}>Next<ArrowRight /></Button></div>
         </article>
         <div className="mt-5 flex flex-wrap gap-2">{m.tags.map((t) => <span key={t} className="rounded-full bg-muted px-3 py-1 text-xs text-muted-foreground">#{t}</span>)}</div>
