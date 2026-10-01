@@ -15,6 +15,7 @@ import { Route as ContributeRouteImport } from './routes/contribute'
 import { Route as ExploreRouteImport } from './routes/explore'
 import { Route as GalleryRouteImport } from './routes/gallery'
 import { Route as PreservationRouteImport } from './routes/preservation'
+import { Route as SurveyRouteImport } from './routes/survey'
 import { Route as MandalsMandalIdRouteImport } from './routes/mandals.$mandalId'
 
 const IndexRoute = IndexRouteImport.update({
@@ -47,6 +48,11 @@ const PreservationRoute = PreservationRouteImport.update({
   path: '/preservation',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SurveyRoute = SurveyRouteImport.update({
+  id: '/survey',
+  path: '/survey',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MandalsMandalIdRoute = MandalsMandalIdRouteImport.update({
   id: '/mandals/$mandalId',
   path: '/mandals/$mandalId',
@@ -60,6 +66,7 @@ export interface FileRoutesByFullPath {
   '/explore': typeof ExploreRoute
   '/gallery': typeof GalleryRoute
   '/preservation': typeof PreservationRoute
+  '/survey': typeof SurveyRoute
   '/mandals/$mandalId': typeof MandalsMandalIdRoute
 }
 export interface FileRoutesByTo {
@@ -69,6 +76,7 @@ export interface FileRoutesByTo {
   '/explore': typeof ExploreRoute
   '/gallery': typeof GalleryRoute
   '/preservation': typeof PreservationRoute
+  '/survey': typeof SurveyRoute
   '/mandals/$mandalId': typeof MandalsMandalIdRoute
 }
 export interface FileRoutesById {
@@ -79,6 +87,7 @@ export interface FileRoutesById {
   '/explore': typeof ExploreRoute
   '/gallery': typeof GalleryRoute
   '/preservation': typeof PreservationRoute
+  '/survey': typeof SurveyRoute
   '/mandals/$mandalId': typeof MandalsMandalIdRoute
 }
 export interface FileRouteTypes {
@@ -90,6 +99,7 @@ export interface FileRouteTypes {
     | '/explore'
     | '/gallery'
     | '/preservation'
+    | '/survey'
     | '/mandals/$mandalId'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -99,6 +109,7 @@ export interface FileRouteTypes {
     | '/explore'
     | '/gallery'
     | '/preservation'
+    | '/survey'
     | '/mandals/$mandalId'
   id:
     | '__root__'
@@ -108,6 +119,7 @@ export interface FileRouteTypes {
     | '/explore'
     | '/gallery'
     | '/preservation'
+    | '/survey'
     | '/mandals/$mandalId'
   fileRoutesById: FileRoutesById
 }
@@ -118,6 +130,7 @@ export interface RootRouteChildren {
   ExploreRoute: typeof ExploreRoute
   GalleryRoute: typeof GalleryRoute
   PreservationRoute: typeof PreservationRoute
+  SurveyRoute: typeof SurveyRoute
   MandalsMandalIdRoute: typeof MandalsMandalIdRoute
 }
 
@@ -165,6 +178,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PreservationRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/survey': {
+      id: '/survey'
+      path: '/survey'
+      fullPath: '/survey'
+      preLoaderRoute: typeof SurveyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/mandals/$mandalId': {
       id: '/mandals/$mandalId'
       path: '/mandals/$mandalId'
@@ -182,6 +202,7 @@ const rootRouteChildren: RootRouteChildren = {
   ExploreRoute: ExploreRoute,
   GalleryRoute: GalleryRoute,
   PreservationRoute: PreservationRoute,
+  SurveyRoute: SurveyRoute,
   MandalsMandalIdRoute: MandalsMandalIdRoute,
 }
 export const routeTree = rootRouteImport
