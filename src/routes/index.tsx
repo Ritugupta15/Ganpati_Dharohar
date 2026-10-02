@@ -5,6 +5,7 @@ import { MandalCard, ProcessLine, SectionHeading } from "@/components/site/secti
 import { mandals, archiveStats } from "@/data/heritage";
 import { methodSteps, preservationSteps } from "@/data/site";
 import heroImage from "@/assets/images/field/f-010-013.jpg";
+import mumbaiBackdrop from "@/assets/images/hero-mumbai-backdrop.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({ meta: [
@@ -26,8 +27,12 @@ const preserve = [
 function HomePage() {
   return <>
     <section className="relative min-h-[76vh] overflow-hidden bg-primary text-primary-foreground">
-      <img src={heroImage} alt="Ganpati idol at Shivdi Cha Raja Ganpati Mandal, Sewri" width={1600} height={1000} className="absolute inset-y-0 right-0 h-full w-full object-cover object-center lg:w-[62%]" />
-      <div className="absolute inset-0 bg-primary/55 lg:bg-primary/10" /><div className="absolute inset-y-0 left-0 w-full bg-gradient-to-r from-primary via-primary/90 to-primary/20 lg:w-[70%] lg:via-primary lg:to-transparent" />
+      {/* Layer 1: faded Gateway of India + Taj Mahal Palace backdrop (illustrative) */}
+      <img src={mumbaiBackdrop} alt="" aria-hidden="true" width={1600} height={1008} className="absolute inset-0 h-full w-full object-cover object-[30%_center] opacity-30 mix-blend-luminosity lg:left-[18%] lg:w-[60%] lg:opacity-45 [mask-image:linear-gradient(to_right,transparent,black_35%,black_70%,transparent)]" />
+      {/* Layer 2: Ganpati field photograph on the right, fading into maroon */}
+      <img src={heroImage} alt="Ganpati idol at Shivdi Cha Raja Ganpati Mandal, Sewri" width={1600} height={1000} className="absolute inset-y-0 right-0 h-full w-full object-cover object-center opacity-45 lg:w-[48%] lg:opacity-100 [mask-image:linear-gradient(to_right,transparent,black_30%)]" />
+      {/* Layer 3: warm maroon overlays for readability */}
+      <div className="absolute inset-0 bg-primary/45 mix-blend-multiply" /><div className="absolute inset-y-0 left-0 w-full bg-gradient-to-r from-primary via-primary/80 to-transparent lg:w-[55%]" />
       <div className="archive-container relative flex min-h-[76vh] items-center py-20"><div className="max-w-2xl"><p className="text-xs font-bold uppercase tracking-[0.18em] text-gold-light">Preserving Mumbai's Ganpati Heritage</p><h1 className="mt-5 font-display text-6xl leading-[.95] md:text-8xl">Ganpati<br />Dharohar</h1><p className="mt-6 max-w-xl text-base leading-8 text-primary-foreground/85 md:text-lg">Discover the stories, traditions, art and community heritage behind Mumbai's Ganpati celebrations.</p><div className="mt-8 flex flex-wrap gap-3"><Button asChild size="lg" className="bg-secondary text-secondary-foreground hover:bg-secondary/90"><Link to="/explore">Explore Heritage <ArrowRight /></Link></Button><Button asChild size="lg" variant="outline" className="border-primary-foreground/45 bg-primary/20 text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground"><Link to="/survey">Community Survey</Link></Button></div><p className="mt-6 text-xs text-primary-foreground/65">Field photograph · Shivdi Cha Raja, Sewri · 18 September 2026</p></div></div>
     </section>
     <section className="py-20"><div className="archive-container grid gap-10 lg:grid-cols-2 lg:items-center"><SectionHeading eyebrow="About the project" title="About Ganpati Dharohar" /><p className="leading-8 text-muted-foreground">Ganpati Dharohar is a college Community Engagement Project (CEP) that documents Mumbai's Ganpati mandals through field visits, photographs and observations, and presents them as a digital heritage archive that anyone can explore. <Link to="/about" className="font-semibold text-primary underline-offset-4 hover:underline">Read more</Link></p></div></section>
