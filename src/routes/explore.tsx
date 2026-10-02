@@ -20,7 +20,7 @@ function ExplorePage() {
   const [filter, setFilter] = useState<(typeof filters)[number]>("All");
   // Search across name, location, theme, tags and section text
   const results = useMemo(() => mandals.filter((m) => {
-    const text = [m.name, m.location, m.theme, m.highlight, ...m.tags, ...Object.values(m.doc)].join(" ").toLowerCase();
+    const text = [m.name, m.location, m.theme, m.highlight, ...(m.tags ?? []), ...Object.values(m.doc ?? {})].join(" ").toLowerCase();
     return text.includes(query.toLowerCase().trim()) && (filter === "All" || m.category === filter);
   }), [query, filter]);
   const surprise = () => navigate({ to: "/mandals/$mandalId", params: { mandalId: mandals[Math.floor(Math.random() * mandals.length)]!.id } });
